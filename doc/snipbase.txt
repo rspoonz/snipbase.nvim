@@ -1,0 +1,45 @@
+*snipbase.txt*  A snippet manager with Telescope integration
+
+==============================================================================
+INTRODUCTION                                                    *snipbase*
+
+Snipbase is a Neovim plugin that helps you manage and search through code
+snippets using Telescope.
+
+==============================================================================
+REQUIREMENTS                                                    *snipbase-requirements*
+
+- Neovim >= 0.5.0
+- telescope.nvim
+
+==============================================================================
+SETUP                                                          *snipbase-setup*
+
+You can setup the plugin with its default configuration: >
+
+    require('snipbase').setup()
+<
+
+==============================================================================
+USAGE                                                          *snipbase-usage*
+
+Saving snippets:                                               *snipbase-save*
+1. Select text in visual mode
+2. Press <Leader>ss
+3. Enter a description for the snippet
+
+Searching snippets:                                            *snipbase-search*
+1. Press <Leader>sp in normal mode
+2. Search through your snippets using Telescope
+3. Preview the snippet content
+4. Press Enter to insert the selected snippet
+
+==============================================================================
+MAPPINGS                                                       *snipbase-mappings*
+
+Default mappings:
+
+<Leader>ss     Save selected text as a snippet (Visual mode)
+<Leader>sp     Search through saved snippets (Normal mode)
+
+ vim:tw=78:ts=8:ft=help:norl:
