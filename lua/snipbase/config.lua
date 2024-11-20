@@ -3,8 +3,8 @@ local M = {}
 M.defaults = {
     snippet_file = vim.fn.stdpath('data') .. '/snipbase.txt',
     mappings = {
-        save = '<Leader>ss',
-        search = '<Leader>sp'
+        save = '<Leader>ns',
+        search = '<Leader>nf'
     }
 }
 
