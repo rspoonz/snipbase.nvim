@@ -27,17 +27,21 @@ function M.get_visual_selection()
         lines[#lines] = string.sub(lines[#lines], 1, cecol)
     end
 
+    if type(lines) == "string" then
+		  lines = { lines } -- Convert single string to table
+    end
+
     -- Concatenate the lines
     return table.concat(lines, '\n')
 end
 
 function M.append_snippet_to_file(snippet, description)
     local file = io.open(config.options.snippet_file, 'a+b')  -- Open in binary append mode
-    if not file then 
+    if not file then
         vim.notify("Failed to open snippet file", vim.log.levels.ERROR)
-        return 
+        return
     end
-    
+
     file:write('Description: ' .. description .. '\n')
     file:write('Snippet:\n')
     file:write(snippet .. '\n')
@@ -66,9 +70,9 @@ end
 
 function M.get_all_snippets()
     local file = io.open(config.options.snippet_file, 'r')
-    if not file then 
+    if not file then
         vim.notify("Snippet file not found", vim.log.levels.WARN)
-        return {} 
+        return {}
     end
 
     local snippets = {}
@@ -142,7 +146,7 @@ function M.search_snippets()
             local function paste_snippet()
                 local selection = action_state.get_selected_entry()
                 actions.close(prompt_bufnr)
-                
+
                 local snippet = snippets[selection.value]
                 if snippet then
                     local lines = vim.split(snippet, '\n')
@@ -160,46 +164,25 @@ function M.search_snippets()
     }):find()
 end
 
-function M.get_snippet_by_description(description)
-    local file = io.open(config.options.snippet_file, 'r')
-    if not file then return nil end
-
-    local snippet = ''
-    local capture = false
-    for line in file:lines() do
-        if line == 'Description: ' .. description then
-            capture = true
-        elseif line == '---' then
-            capture = false
-        elseif capture and line == 'Snippet:' then
-            -- Skip the 'Snippet:' line
-        elseif capture then
-            snippet = snippet .. line .. '\n'
-        end
-    end
-    file:close()
-    return snippet
-end
-
 function M.setup(opts)
     -- Initialize configuration
     config.setup(opts)
-    
+
     -- Ensure the snippet file directory exists
     local snippet_dir = vim.fn.fnamemodify(config.options.snippet_file, ':h')
     if vim.fn.isdirectory(snippet_dir) == 0 then
         vim.fn.mkdir(snippet_dir, 'p')
     end
-    
+
     -- Set up keymaps
-    vim.api.nvim_set_keymap('v', config.options.mappings.save, 
-        [[:lua require('snipbase').save_snippet()<cr>]], 
+    vim.api.nvim_set_keymap('v', config.options.mappings.save,
+        [[:lua require('snipbase').save_snippet()<cr>]],
         { noremap = true, silent = true, desc = 'Save snippet' })
-    
-    vim.api.nvim_set_keymap('n', config.options.mappings.search, 
-        [[:lua require('snipbase').search_snippets()<cr>]], 
+
+    vim.api.nvim_set_keymap('n', config.options.mappings.search,
+        [[:lua require('snipbase').search_snippets()<cr>]],
         { noremap = true, silent = true, desc = 'Search snippet' })
-        
+
     vim.notify("Snipbase initialized", vim.log.levels.INFO)
 end
 
