@@ -52,12 +52,12 @@ require('snipbase').setup({
 ### Save a Snippet
 
 1. Select the code you want to save in visual mode
-2. Press `<Leader>ss`
+2. Press `<Leader>ns`
 3. Enter a description for the snippet
 
 ### Search and Insert Snippets
 
-1. Press `<Leader>sp` in normal mode
+1. Press `<Leader>nf` in normal mode
 2. Search through your snippets using Telescope
 3. Preview the snippet content in the preview window
 4. Press Enter to insert the selected snippet
