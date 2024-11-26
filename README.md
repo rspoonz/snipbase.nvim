@@ -46,8 +46,8 @@ require('snipbase').setup({
 
 ### Default Keymaps
 
-- `<Leader>ss` in visual mode: Save selected text as a snippet
-- `<Leader>sp` in normal mode: Search through saved snippets
+- `<Leader>ns` in visual mode: Save selected text as a snippet
+- `<Leader>nf` in normal mode: Search through saved snippets
 
 ### Save a Snippet
 
